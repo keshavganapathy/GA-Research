@@ -37,7 +37,7 @@ class Population:
         return self.individuals[maxFit2]
 
     def getLeastFittestIndex(self):
-        minFitVal = 0
+        minFitVal = self.individuals[0].getFitness()
         minFitIndex = 0
         i = 0
         while i < len(self.individuals):

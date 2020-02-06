@@ -4,6 +4,7 @@ from InitClass import InitClass
 import numpy
 import random
 
+
 class GeneticALGO:
     population = None
     fittest = None
@@ -15,16 +16,16 @@ class GeneticALGO:
     numberOfIndividuals = 0
     # total generations watned
     genTotal = 5
-    #placeholder individual
+    # placeholder individual
     place = None
-    #data class
+    # data class
     init = None
 
     def __init__(self, pop):
         self.numberOfIndividuals = pop
         self.population = Population(pop)
         self.generationCount = 1
-        self.place = Individual(False, 10000, 15.45, 624.7407, 9.238378, 600000, 6791, 36382484)
+        self.place = Individual(False, 0, 0, 0, 0, 0, 0, 0)
         self.init = InitClass()
 
     def selection(self):
@@ -39,26 +40,35 @@ class GeneticALGO:
 
     def addFittestOffspring(self):
         leastFittestIndex = self.population.getLeastFittestIndex()
+        print(leastFittestIndex)
         self.population.getIndividuals()[leastFittestIndex] = self.place
 
     def crossover(self):
         crossOverPoint = random.randint(0, 5)
         i = 0
+        print(crossOverPoint)
         while i < crossOverPoint:
             self.place.getGenes()[i] = self.fittest.getGenes()[i]
             i = i + 1
-        i = crossOverPoint
+        print()
         while i < 6:
             self.place.getGenes()[i] = self.secondFittest.getGenes()[i]
             i = i + 1
         x = 0
         while x < len(self.init.getGene1()):
-            if self.place.getGenes()[0] == self.init.getGene1()[x]:
-                self.place.setFitness(self.init.getFitness()[x])
-                break
+            try:
+                if (self.place.getGenes()[0] == self.init.getGene1()[x]) & (
+                    self.place.getGenes()[1] == self.init.getGene2()[x]) & (
+                    self.place.getGenes()[2] == self.init.getGene3()[x]) & (
+                    self.place.getGenes()[3] == self.init.getGene4()[x]) & (
+                    self.place.getGenes()[4] == self.init.getGene5()[x]) & (
+                    self.place.getGenes()[5] == self.init.getGene6()[x]):
+                    self.place.setFitness(self.init.getfitness()[x])
+                    break
+            except:
+                print(x)
             else:
                 x = x + 1
-
 
     @staticmethod
     def showGeneticPool(individuals):
@@ -76,11 +86,34 @@ test.genTotal = 3
 # number of Genes in each ALGO
 test.numberofGenes = 6
 # fitness, gene1, gene2, gene3, gene4, gene5, gene6
-a = [Individual(True ,10000, 15.45, 624.7407, 9.238378, 600000, 6791, 36382484),
-     Individual(True ,50000, 16.04, 642.0832, 13.622618, 230000, 10739, 106259284),
-     Individual(True, 10000, 14.49, 466.7179, 10.352072, 656000, 5685, 3007874),
-     Individual(True, 30000, 13.01, 628.8233, 16.078326, 340000, 6555, 26754356),
-     Individual(True, 10000, 14.66, 508.1231, 10.122333, 312000, 10745, 64329492)]
+one = random.randint(0, 148)
+two = random.randint(0, 148)
+three = random.randint(0, 148)
+four = random.randint(0, 148)
+five = random.randint(0, 148)
+try:
+    a = [Individual(True, test.init.getfitness()[one], test.init.getGene1()[one], test.init.getGene2()[one],
+                    test.init.getGene3()[one], test.init.getGene4()[one], test.init.getGene5()[one],
+                    test.init.getGene6()[one]),
+         Individual(True, test.init.getfitness()[two], test.init.getGene1()[two], test.init.getGene2()[two],
+                    test.init.getGene3()[two], test.init.getGene4()[two], test.init.getGene5()[two],
+                    test.init.getGene6()[two]),
+         Individual(True, test.init.getfitness()[three], test.init.getGene1()[three], test.init.getGene2()[three],
+                    test.init.getGene3()[three], test.init.getGene4()[three], test.init.getGene5()[three],
+                    test.init.getGene6()[three]),
+         Individual(True, test.init.getfitness()[four], test.init.getGene1()[four], test.init.getGene2()[four],
+                    test.init.getGene3()[four], test.init.getGene4()[four], test.init.getGene5()[four],
+                    test.init.getGene6()[four]),
+         Individual(True, test.init.getfitness()[five], test.init.getGene1()[five], test.init.getGene2()[five],
+                    test.init.getGene3()[five], test.init.getGene4()[five], test.init.getGene5()[five],
+                    test.init.getGene6()[five])]
+except:
+    print(one)
+    print(two)
+    print(three)
+    print(four)
+    print(five)
+
 i = 0
 while i < test.numberOfIndividuals:
     test.population.getIndividuals()[i] = a[i]
