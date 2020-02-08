@@ -14,48 +14,40 @@ class Population:
     def selectFittest(self):
         maxFit = 0
         maxFitIndex = 0
-        i = 0
-        while i < len(self.individuals):
+        for i in range(len(self.individuals)):
             if maxFit <= self.individuals[i].getFitness():
                 maxFit = self.individuals[i].getFitness()
                 maxFitIndex = i
-            i = i + 1
         self.fittestScore = self.individuals[maxFitIndex].getFitness()
         return self.individuals[maxFitIndex]
 
     def selectSecondFittest(self):
         maxFit1 = 0
         maxFit2 = 0
-        i = 0
-        while i < len(self.individuals):
+        for i in range(len(self.individuals)):
             if (self.individuals[i].getFitness() > self.individuals[maxFit1].getFitness()):
                 maxFit2 = maxFit1
                 maxFit1 = 0
             elif (self.individuals[i].getFitness() > self.individuals[maxFit2].getFitness()):
                 maxFit2 = i
-            i = i + 1
         return self.individuals[maxFit2]
 
     def getLeastFittestIndex(self):
         minFitVal = self.individuals[0].getFitness()
         minFitIndex = 0
-        i = 0
-        while i < len(self.individuals):
+        for i in range(len(self.individuals)):
             if minFitVal >= self.individuals[i].getFitness():
                 minFitVal = self.individuals[i].getFitness()
                 minFitIndex = i
-            i = i + 1
         return minFitIndex
 
     def getFittestIndex(self):
         maxFit = 0
         maxFitIndex = 0
-        i = 0
-        while i < len(self.individuals):
+        for i in range(len(self.individuals)):
             if maxFit <= self.individuals[i].getFitness():
                 maxFit = self.individuals[i].getFitness()
                 maxFitIndex = i
-            i = i + 1
         return maxFitIndex
 
     def getPopSize(self):
