@@ -66,7 +66,7 @@ class GeneticALGO:
                     self.place.setFitness(self.init.getfitness()[x])
             except:
                 print("Exception Throwin")
-
+        self.place.toString()
     def findmax(self):
         for i in range (len(self.population.getIndividuals())):
             if self.maxfit <= self.population.getIndividuals()[i].getFitness():
@@ -88,11 +88,11 @@ test.genTotal = 3
 # number of Genes in each ALGO
 test.numberofGenes = 6
 # fitness, gene1, gene2, gene3, gene4, gene5, gene6
-one = random.randrange(0, 148)
-two = random.randrange(0, 148)
-three = random.randrange(0, 148)
-four = random.randrange(0, 148)
-five = random.randrange(0, 148)
+one = random.randrange(0, 149)
+two = random.randrange(0, 149)
+three = random.randrange(0, 149)
+four = random.randrange(0, 149)
+five = random.randrange(0, 149)
 try:
     a = [Individual(test.init.getfitness()[one], test.init.getGene1()[one], test.init.getGene2()[one],
                     test.init.getGene3()[one], test.init.getGene4()[one], test.init.getGene5()[one],
@@ -121,7 +121,8 @@ for i in range (test.numberOfIndividuals):
 print("Population of " + str(test.population.getPopSize()) + " individual(s).")
 print("Generation: " + str(1) + " Fittest Score: " + str(test.population.getFittestScore()))
 GeneticALGO.showGeneticPool(test.population.getIndividuals())
-while test.maxfit < 16:
+i = 0
+while i < 2:
     test.generationCount = test.generationCount + 1
     test.selection()
     test.crossover()
@@ -135,6 +136,8 @@ while test.maxfit < 16:
     print("Generation: " + str(test.generationCount) + " Fittest Score: " + str(test.population.getFittestScore()))
     GeneticALGO.showGeneticPool(test.population.getIndividuals())
     test.findmax()
+    i = i + 1
+    print(test.maxfit)
 print("")
 print("Solution found in generation: " + str(test.generationCount))
 print("Index of winner Individual: " + str(test.population.getFittestIndex()))
