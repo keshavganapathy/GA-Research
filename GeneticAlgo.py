@@ -85,6 +85,7 @@ class GeneticALGO:
         print("===============")
 
 
+print("start")
 test = GeneticALGO(5)
 # change to amount of generations wanted
 test.genTotal = 3
@@ -97,22 +98,36 @@ three = random.randrange(0, 149)
 four = random.randrange(0, 149)
 five = random.randrange(0, 149)
 try:
-    for i in range(50):
-        one = random.randrange(0, 149)
-        test.population.getIndividuals().append(Individual(test.init.getfitness()[one], test.init.getGene1()[one], test.init.getGene2()[one],
-                            test.init.getGene3()[one], test.init.getGene4()[one], test.init.getGene5()[one], test.init.getGene6()[one]))
+    a = [Individual(test.init.getfitness()[one], test.init.getGene1()[one], test.init.getGene2()[one],
+                    test.init.getGene3()[one], test.init.getGene4()[one], test.init.getGene5()[one],
+                    test.init.getGene6()[one]),
+         Individual(test.init.getfitness()[two], test.init.getGene1()[two], test.init.getGene2()[two],
+                    test.init.getGene3()[two], test.init.getGene4()[two], test.init.getGene5()[two],
+                    test.init.getGene6()[two]),
+         Individual(test.init.getfitness()[three], test.init.getGene1()[three], test.init.getGene2()[three],
+                    test.init.getGene3()[three], test.init.getGene4()[three], test.init.getGene5()[three],
+                    test.init.getGene6()[three]),
+         Individual(test.init.getfitness()[four], test.init.getGene1()[four], test.init.getGene2()[four],
+                    test.init.getGene3()[four], test.init.getGene4()[four], test.init.getGene5()[four],
+                    test.init.getGene6()[four]),
+         Individual(test.init.getfitness()[five], test.init.getGene1()[five], test.init.getGene2()[five],
+                    test.init.getGene3()[five], test.init.getGene4()[five], test.init.getGene5()[five],
+                    test.init.getGene6()[five])]
 except:
     print(one)
     print(two)
     print(three)
     print(four)
     print(five)
-
+i = 0
+while i < 5:
+    print(i)
+    test.population.getIndividuals()[i] = a[i]
+    i = i + 1
 print("Population of " + str(test.population.getPopSize()) + " individual(s).")
 print("Generation: " + str(1) + " Fittest Score: " + str(test.population.getFittestScore()))
 GeneticALGO.showGeneticPool(test.population.getIndividuals())
-i = 0
-while i < 3:
+while test.maxfit < 16:
     test.generationCount = test.generationCount + 1
     test.selection()
     test.crossover()
@@ -125,7 +140,6 @@ while i < 3:
     print("Generation: " + str(test.generationCount) + " Fittest Score: " + str(test.population.getFittestScore()))
     GeneticALGO.showGeneticPool(test.population.getIndividuals())
     test.findmax()
-    i = i + 1
 print("")
 print("Solution found in generation: " + str(test.generationCount))
 print("Index of winner Individual: " + str(test.population.getFittestIndex()))
