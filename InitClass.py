@@ -52,3 +52,10 @@ class InitClass:
         return self.fitness
 
 test = InitClass()
+print(len(test.gene1))
+print(len(test.gene2))
+print(len(test.gene3))
+print(len(test.gene4))
+print(len(test.gene5))
+print(len(test.gene5))
+print(len(test.fitness))
