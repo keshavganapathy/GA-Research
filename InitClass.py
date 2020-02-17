@@ -52,3 +52,4 @@ class InitClass:
         return self.fitness
 
 test = InitClass()
+print(test.getGene1()[0])
