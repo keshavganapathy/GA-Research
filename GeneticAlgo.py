@@ -66,7 +66,7 @@ class GeneticALGO:
             except:
                 print("Exception Throwin")
     def findmax(self):
-        for i in range(len(self.population.getIndividuals())-1):
+        for i in range(len(self.population.getIndividuals())):
             if self.maxfit <= self.population.getIndividuals()[i].getFitness():
                 self.maxfit = self.population.getIndividuals()[i].getFitness()
 
@@ -76,7 +76,7 @@ class GeneticALGO:
         increment = 1
         for individual in individuals:
             print("> Individual " + str(increment) + " | " + individual.toString() + " | ")
-            increment +=1
+            increment = increment + 1
         print("===============")
 
 #pass initial population size
@@ -91,12 +91,29 @@ try:
         a.append(Individual(test.init.getfitness()[one], test.init.getGene1()[one], test.init.getGene2()[one],
                     test.init.getGene3()[one], test.init.getGene4()[one], test.init.getGene5()[one],
                     test.init.getGene6()[one]))
+    '''
+    a = [Individual(test.init.getfitness()[one], test.init.getGene1()[one], test.init.getGene2()[one],
+                    test.init.getGene3()[one], test.init.getGene4()[one], test.init.getGene5()[one],
+                    test.init.getGene6()[one]),
+         Individual(test.init.getfitness()[two], test.init.getGene1()[two], test.init.getGene2()[two],
+                    test.init.getGene3()[two], test.init.getGene4()[two], test.init.getGene5()[two],
+                    test.init.getGene6()[two]),
+         Individual(test.init.getfitness()[three], test.init.getGene1()[three], test.init.getGene2()[three],
+                    test.init.getGene3()[three], test.init.getGene4()[three], test.init.getGene5()[three],
+                    test.init.getGene6()[three]),
+         Individual(test.init.getfitness()[four], test.init.getGene1()[four], test.init.getGene2()[four],
+                    test.init.getGene3()[four], test.init.getGene4()[four], test.init.getGene5()[four],
+                    test.init.getGene6()[four]),
+         Individual(test.init.getfitness()[five], test.init.getGene1()[five], test.init.getGene2()[five],
+                    test.init.getGene3()[five], test.init.getGene4()[five], test.init.getGene5()[five],
+                    test.init.getGene6()[five])]
+    '''
 except:
     None
 i = 0
 while i < len(a):
     test.population.getIndividuals()[i] = a[i]
-    i += 1
+    i = i + 1
 print("Population of " + str(test.population.getPopSize()) + " individual(s).")
 print("Generation: " + str(1) + " Fittest Score: " + str(test.population.getFittestScore()))
 GeneticALGO.showGeneticPool(test.population.getIndividuals())
