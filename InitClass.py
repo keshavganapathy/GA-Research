@@ -50,6 +50,3 @@ class InitClass:
 
     def getfitness(self):
         return self.fitness
-
-test = InitClass()
-print(test.getGene1()[0])

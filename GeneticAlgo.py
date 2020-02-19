@@ -10,12 +10,8 @@ class GeneticALGO:
     fittest = None
     secondFittest = None
     generationCount = 0
-    # number of Genes in each ALGO
-    numberofGenes = 0
     # total initial pool size
     numberOfIndividuals = 0
-    # total generations watned
-    genTotal = 5
     # placeholder individual
     place = None
     # data class
@@ -39,10 +35,6 @@ class GeneticALGO:
 
     def addFittestOffspring(self):
         leastFittestIndex = self.population.getLeastFittestIndex()
-#        print("Fittest Genes are " + self.fittest.toString())
-#        print("Second Fittest Genes are " + self.secondFittest.toString())
-#        print("New Genes are " + self.place.toString())
-#        print("Least Fittest Index " + str(leastFittestIndex))
         self.population.getIndividuals()[leastFittestIndex] = self.place
 
     def crossover(self):
@@ -70,6 +62,25 @@ class GeneticALGO:
             if self.maxfit <= self.population.getIndividuals()[i].getFitness():
                 self.maxfit = self.population.getIndividuals()[i].getFitness()
 
+    def mutation(self):
+        ran = random.randrange(0, len(self.population))
+        ran1 = random.randrange(0, len(self.population.getIndividuals().getGenes()))
+        if ran1 == 0:
+
+        else 
+        self.population.getIndividuals()[ran].getGenes()[ran1] = self.init.get
+        for x in range(149):
+            try:
+                if (self.place.getGenes()[0] == self.init.getGene1()[x]) & (
+                        self.place.getGenes()[1] == self.init.getGene2()[x]) & (
+                        self.place.getGenes()[2] == self.init.getGene3()[x]) & (
+                        self.place.getGenes()[3] == self.init.getGene4()[x]) & (
+                        self.place.getGenes()[4] == self.init.getGene5()[x]) & (
+                        self.place.getGenes()[5] == self.init.getGene6()[x]):
+                    self.place.setFitness(self.init.getfitness()[x])
+            except:
+                print("Exception Throwin")
+
     @staticmethod
     def showGeneticPool(individuals):
         print("==All Individuals==")
@@ -80,51 +91,28 @@ class GeneticALGO:
         print("===============")
 
 #pass initial population size
-test = GeneticALGO(10)
-# number of Genes in each ALGO
-test.numberofGenes = 6
-# fitness, gene1, gene2, gene3, gene4, gene5, gene6
+test = GeneticALGO(5)
 a = []
 try:
     for i in range (test.numberOfIndividuals):
-        one = random.randrange(0, 149)
-        a.append(Individual(test.init.getfitness()[one], test.init.getGene1()[one], test.init.getGene2()[one],
-                    test.init.getGene3()[one], test.init.getGene4()[one], test.init.getGene5()[one],
-                    test.init.getGene6()[one]))
-    '''
-    a = [Individual(test.init.getfitness()[one], test.init.getGene1()[one], test.init.getGene2()[one],
-                    test.init.getGene3()[one], test.init.getGene4()[one], test.init.getGene5()[one],
-                    test.init.getGene6()[one]),
-         Individual(test.init.getfitness()[two], test.init.getGene1()[two], test.init.getGene2()[two],
-                    test.init.getGene3()[two], test.init.getGene4()[two], test.init.getGene5()[two],
-                    test.init.getGene6()[two]),
-         Individual(test.init.getfitness()[three], test.init.getGene1()[three], test.init.getGene2()[three],
-                    test.init.getGene3()[three], test.init.getGene4()[three], test.init.getGene5()[three],
-                    test.init.getGene6()[three]),
-         Individual(test.init.getfitness()[four], test.init.getGene1()[four], test.init.getGene2()[four],
-                    test.init.getGene3()[four], test.init.getGene4()[four], test.init.getGene5()[four],
-                    test.init.getGene6()[four]),
-         Individual(test.init.getfitness()[five], test.init.getGene1()[five], test.init.getGene2()[five],
-                    test.init.getGene3()[five], test.init.getGene4()[five], test.init.getGene5()[five],
-                    test.init.getGene6()[five])]
-    '''
+        var = random.randrange(0, 149)
+        a.append(Individual(test.init.getfitness()[var], test.init.getGene1()[var], test.init.getGene2()[var],
+                    test.init.getGene3()[var], test.init.getGene4()[var], test.init.getGene5()[var],
+                    test.init.getGene6()[var]))
 except:
     None
-i = 0
-while i < len(a):
+for i in range (len(a)):
     test.population.getIndividuals()[i] = a[i]
-    i = i + 1
 print("Population of " + str(test.population.getPopSize()) + " individual(s).")
 print("Generation: " + str(1) + " Fittest Score: " + str(test.population.getFittestScore()))
 GeneticALGO.showGeneticPool(test.population.getIndividuals())
-i = 0
 while test.maxfit < 16:
     test.generationCount = test.generationCount + 1
     test.selection()
     test.crossover()
-    # Need to know potential values
-    #    if(chance of mutation):
-    #        test.mutation()
+    var = random.randrange(0, 7)
+    if var == 1:
+        test.mutation()
     counter = 0
     for individual in test.population.individuals:
         if test.place.getFitness() == individual.getFitness():
@@ -136,7 +124,6 @@ while test.maxfit < 16:
     print("Generation: " + str(test.generationCount) + " Fittest Score: " + str(test.population.getFittestScore()))
     GeneticALGO.showGeneticPool(test.population.getIndividuals())
     test.place = Individual(0,0,0,0,0,0,0)
-    i = i + 1
 test.population.setFittestScore()
 print("")
 print("Solution found in generation: " + str(test.generationCount))

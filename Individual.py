@@ -10,19 +10,19 @@ class Individual:
         # set to the total num of genes desired
         self.geneLength = 6
         self.gene = numpy.empty(self.geneLength, dtype=object)
-        self.gene[0] = (gene1)
-        self.gene[1] = (gene2)
-        self.gene[2] = (gene3)
-        self.gene[3] = (gene4)
-        self.gene[4] = (gene5)
-        self.gene[5] = (gene6)
+        self.gene[0] = gene1
+        self.gene[1] = gene2
+        self.gene[2] = gene3
+        self.gene[3] = gene4
+        self.gene[4] = gene5
+        self.gene[5] = gene6
         self.fitness = Fitness
 
     def getGeneLength(self):
         return self.geneLength
 
-    def setGeneLength(self, geneLength):
-        self.geneLength = geneLength
+    def setGeneLength(self, genelength):
+        self.geneLength = genelength
 
     def toString(self):
         returnVal = ""
