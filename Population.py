@@ -30,16 +30,12 @@ class Population:
     def selectSecondFittest(self):
         total = 0
         for i in range(len(self.individuals)):
-            if(self.individuals[i].getFitness() == self.fittestScore):
-                None
-            else:
+            if(self.individuals[i].getFitness() != self.fittestScore):
                 total = total + self.individuals[i].getFitness()
         arr = numpy.empty(100, dtype=object)
         holder = 0
         for individual in self.individuals:
-            if individual.getFitness() == self.fittestScore:
-                None
-            else:
+            if individual.getFitness() != self.fittestScore:
                 for x in range(int(individual.getFitness() * 100 / total)):
                     arr[holder] = individual.getFitness()
                     holder = holder + 1
