@@ -63,7 +63,7 @@ class GeneticALGO:
 
     def mutation(self):
         ran = random.randrange(0, len(self.population.getIndividuals()))
-        ran1 = random.randrange(0, len(self.population.getIndividuals()[0].getGenes()) + 1)
+        ran1 = random.randrange(0, len(self.population.getIndividuals()[0].getGenes()))
         var = random.randrange(0, 150)
         if ran1 == 0:
             self.population.getIndividuals()[ran].getGenes()[ran1] = self.init.getGene1()[var]
@@ -77,8 +77,6 @@ class GeneticALGO:
             self.population.getIndividuals()[ran].getGenes()[ran1] = self.init.getGene5()[var]
         elif ran1 == 5:
             self.population.getIndividuals()[ran].getGenes()[ran1] = self.init.getGene6()[var]
-        elif ran1 == 6:
-            self.population.getIndividuals()[ran].setFitness(self.init.getfitness()[var])
         for x in range(150):
             try:
                 if (self.place.getGenes()[0] == self.init.getGene1()[x]) & (
@@ -100,47 +98,40 @@ class GeneticALGO:
             increment = increment + 1
         print("===============")
 
-# pass initial population size
-test = GeneticALGO(5)
-a = []
-try:
-    for i in range (test.numberOfIndividuals):
-        var = random.randrange(0, 150)
-        a.append(Individual(test.init.getfitness()[var], test.init.getGene1()[var], test.init.getGene2()[var],
-                    test.init.getGene3()[var], test.init.getGene4()[var], test.init.getGene5()[var],
-                    test.init.getGene6()[var]))
-except:
-    None
-for i in range (len(a)):
-    test.population.getIndividuals()[i] = a[i]
-print("Population of " + str(test.population.getPopSize()) + " individual(s).")
-print("Generation: " + str(1) + " Fittest Score: " + str(test.population.getFittestScore()))
-GeneticALGO.showGeneticPool(test.population.getIndividuals())
-# have the while loop condition be whatever you want fitness to attain. For example, while test.maxfit != 16. if you want the final score to be 16
-while test.maxfit < 16:
-    test.generationCount = test.generationCount + 1
-    test.selection()
-    test.crossover()
-    var = random.randrange(0, 8)
-    if var == 1:
-        test.mutation()
-    counter = 0
-    for individual in test.population.individuals:
-        if test.place.getFitness() == individual.getFitness():
-            counter = counter + 1
-    if counter == 0:
-        test.addFittestOffspring()
-    test.findmax()
-    print("")
-    print("Generation: " + str(test.generationCount) + " Fittest Score: " + str(test.population.getFittestScore()))
-    GeneticALGO.showGeneticPool(test.population.getIndividuals())
-    test.place = Individual(0,0,0,0,0,0,0)
-test.population.setFittestScore()
-print("")
-print("Solution found in generation: " + str(test.generationCount))
-print("Index of winner Individual: " + str(test.population.getFittestIndex()))
-print("Fitness: " + str(test.population.getFittestScore()));
-winGenes = numpy.empty(test.numberofGenes, dtype=Individual)
-print("Genes: ")
-for i in range(test.numberofGenes):
-    print("Gene: " + str(i + 1) + " " + str(test.population.selectFittest().getGenes()[i]))
+    def doSimulation(self, arr):
+        a = arr
+        for i in range(len(a)):
+            self.population.getIndividuals()[i] = a[i]
+        print("Population of " + str(self.population.getPopSize()) + " individual(s).")
+        print("Generation: " + str(1) + " Fittest Score: " + str(self.population.getFittestScore()))
+        GeneticALGO.showGeneticPool(self.population.getIndividuals())
+        # have the while loop condition be whatever you want fitness to attain. For example, while self.maxfit != 16. if you want the final score to be 16
+        while self.maxfit < 16:
+            self.generationCount = self.generationCount + 1
+            self.selection()
+            self.crossover()
+            var = random.randrange(0, 8)
+            if var == 1:
+                self.mutation()
+            counter = 0
+            for individual in self.population.individuals:
+                if self.place.getFitness() == individual.getFitness():
+                    counter = counter + 1
+            if counter == 0:
+                self.addFittestOffspring()
+            self.findmax()
+            print("")
+            print("Generation: " + str(self.generationCount) + " Fittest Score: " + str(
+                self.population.getFittestScore()))
+            GeneticALGO.showGeneticPool(self.population.getIndividuals())
+            self.place = Individual(0, 0, 0, 0, 0, 0, 0)
+        self.population.setFittestScore()
+        print("")
+        print("Solution found in generation: " + str(self.generationCount))
+        print("Index of winner Individual: " + str(self.population.getFittestIndex()))
+        print("Fitness: " + str(self.population.getFittestScore()));
+        winGenes = numpy.empty(self.numberofGenes, dtype=Individual)
+        print("Genes: ")
+        for i in range(self.numberofGenes):
+            print("Gene: " + str(i + 1) + " " + str(self.population.selectFittest().getGenes()[i]))
+        return (self.generationCount + 5)

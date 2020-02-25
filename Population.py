@@ -17,15 +17,15 @@ class Population:
         for i in range(len(self.individuals)):
             total = total + self.individuals[i].getFitness()
         arr = numpy.empty(100, dtype=object)
+        arr2 = numpy.empty(100, dtype=object)
         holder = 0
         for individual in self.individuals:
             for x in range(int(individual.getFitness() * 100 / total)):
                 arr[holder] = individual.getFitness()
+                arr2[holder] = individual
                 holder = holder + 1
-        winnerIndex = random.randrange(0, 99)
-        fit = arr[winnerIndex]
-        self.fittestScore = self.individuals[self.getIndex(fit)].getFitness()
-        return self.individuals[self.getIndex(fit)]
+        winnerIndex = random.randrange(0, 100)
+        return arr2[winnerIndex]
 
     def selectSecondFittest(self):
         total = 0
@@ -33,15 +33,16 @@ class Population:
             if(self.individuals[i].getFitness() != self.fittestScore):
                 total = total + self.individuals[i].getFitness()
         arr = numpy.empty(100, dtype=object)
+        arr2 = numpy.empty(100, dtype=object)
         holder = 0
         for individual in self.individuals:
             if individual.getFitness() != self.fittestScore:
                 for x in range(int(individual.getFitness() * 100 / total)):
                     arr[holder] = individual.getFitness()
+                    arr2[holder] = individual
                     holder = holder + 1
-        winnerIndex = random.randrange(0, 99)
-        fit = arr[winnerIndex]
-        return self.individuals[self.getIndex(fit)]
+        winnerIndex = random.randrange(0, 100)
+        return arr2[winnerIndex]
 
     def getLeastFittestIndex(self):
         minFitVal = self.individuals[0].getFitness()
