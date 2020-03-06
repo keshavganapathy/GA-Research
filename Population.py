@@ -7,42 +7,59 @@ class Population:
     popSize = 0
     individuals = []
     fittestScore = 0
+    fittest = None
+    secondFittest = None
 
     def __init__(self, popsize):
         self.popSize = popsize
         self.individuals = numpy.empty(popsize, dtype=Individual)
+        self.fittest = Individual(0,0,0,0,0,0,0)
+        self.secondFittest = Individual(0,0,0,0,0,0,0)
+
 
     def selectFittest(self):
+        weights = numpy.empty(self.popSize, dtype=object)
         total = 0
         for i in range(len(self.individuals)):
+            if i == 0:
+                weights[i] = self.individuals[i].getFitness()
+            else:
+                weights[i] = self.individuals[i].getFitness() + weights[i-1]
             total = total + self.individuals[i].getFitness()
-        arr = numpy.empty(100, dtype=object)
-        arr2 = numpy.empty(100, dtype=object)
-        holder = 0
-        for individual in self.individuals:
-            for x in range(int(individual.getFitness() * 100 / total)):
-                arr[holder] = individual.getFitness()
-                arr2[holder] = individual
-                holder = holder + 1
-        winnerIndex = random.randrange(0, 100)
-        return arr2[winnerIndex]
+        val = random.uniform(0, total)
+        for i in range (len(self.individuals)):
+            if i == 0:
+                if val < weights[i]:
+                    self.fittest = self.individuals[i]
+                    self.fittestScore = self.individuals[i].getFitness()
+                    return self.individuals[i]
+            else:
+                if weights[i - 1] < val < weights[i]:
+                    self.fittest = self.individuals[i]
+                    self.fittestScore = self.individuals[i].getFitness()
+                    return self.individuals[i]
 
     def selectSecondFittest(self):
-        total = 0
-        for i in range(len(self.individuals)):
-            if(self.individuals[i].getFitness() != self.fittestScore):
+        self.secondFittest = self.fittest
+        while Population.areSame(self.fittest, self.secondFittest):
+            weights = numpy.empty(self.popSize, dtype=object)
+            total = 0
+            for i in range(len(self.individuals)):
+                if i == 0:
+                    weights[i] = self.individuals[i].getFitness()
+                else:
+                    weights[i] = self.individuals[i].getFitness() + weights[i - 1]
                 total = total + self.individuals[i].getFitness()
-        arr = numpy.empty(100, dtype=object)
-        arr2 = numpy.empty(100, dtype=object)
-        holder = 0
-        for individual in self.individuals:
-            if individual.getFitness() != self.fittestScore:
-                for x in range(int(individual.getFitness() * 100 / total)):
-                    arr[holder] = individual.getFitness()
-                    arr2[holder] = individual
-                    holder = holder + 1
-        winnerIndex = random.randrange(0, 100)
-        return arr2[winnerIndex]
+            val = random.uniform(0, total)
+            for i in range(len(self.individuals)):
+                if i == 0:
+                    if val < weights[i]:
+                        self.secondFittest = self.individuals[i]
+                        return self.secondFittest
+                else:
+                    if weights[i - 1] < val < weights[i]:
+                        self.secondFittest = self.individuals[i]
+                        return self.secondFittest
 
     def getLeastFittestIndex(self):
         minFitVal = self.individuals[0].getFitness()
@@ -85,3 +102,14 @@ class Population:
         for individual in self.individuals:
             if individual.getFitness() > self.fittestScore:
                 self.fittestScore = individual.getFitness()
+
+    @staticmethod
+    def areSame(a, b):
+        counter = 0
+        for i in range (len(b.getGenes())):
+            if a.getGenes()[i] == b.getGenes()[i]:
+                counter = counter + 1
+        if counter == 6:
+            return True
+        else:
+            return False

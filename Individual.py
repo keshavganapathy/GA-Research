@@ -46,4 +46,3 @@ class Individual:
 
     def setGenes(self, Genes):
         self.gene = Genes
-

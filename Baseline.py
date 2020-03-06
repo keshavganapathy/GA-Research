@@ -20,6 +20,7 @@ class Baseline:
         self.place = Individual(0, 0, 0, 0, 0, 0, 0)
         self.init = InitClass()
         self.maxfit = 0
+        self.numberofGenes = 6
 
     def addFittestOffspring(self):
         leastFittestIndex = self.population.getLeastFittestIndex()
@@ -39,8 +40,7 @@ class Baseline:
             increment = increment + 1
         print("===============")
 
-    def doSimulation(self, arr):
-        a = arr
+    def doSim(self, a):
         for i in range(len(a)):
             self.population.getIndividuals()[i] = a[i]
         print("Population of " + str(self.population.getPopSize()) + " individual(s).")
@@ -49,22 +49,26 @@ class Baseline:
         # have the while loop condition be whatever you want fitness to attain. For example, while self.maxfit != 16. if you want the final score to be 16
         self.findmax()
         while self.maxfit < 16:
+            self.generationCount = self.generationCount + 1
             var = random.randrange(0, 150)
             self.place = Individual(self.init.getfitness()[var], self.init.getGene1()[var], self.init.getGene2()[var],
                                 self.init.getGene3()[var], self.init.getGene4()[var], self.init.getGene5()[var],
                                 self.init.getGene6()[var])
-            self.generationCount = self.generationCount + 1
             counter = 0
-            if self.place.getFitness() > 16:
-                self.maxfit = self.place.getFitness()
-                self.population.fittestScore = self.place.getFitness()
-            else:
-                self.findmax()
+            for individual in self.population.individuals:
+                if Baseline.areSame(self.place, individual):
+                    #self.generationCount = self.generationCount - 1
+                    counter = counter + 1
+            if counter == 0:
+                self.addFittestOffspring()
+            #self.addFittestOffspring()
+            self.findmax()
             print("")
+            print("----------This is a Baseline Test----------")
             print("Generation: " + str(self.generationCount) + " Fittest Score: " + str(self.population.getFittestScore()))
             Baseline.showGeneticPool(self.population.getIndividuals())
             self.place = Individual(0, 0, 0, 0, 0, 0, 0)
-        self.population.setFittestScore()
+            self.population.setFittestScore()
         print("")
         print("Solution found in generation: " + str(self.generationCount))
         print("Index of winner Individual: " + str(self.population.getFittestIndex()))
@@ -74,3 +78,28 @@ class Baseline:
         for i in range(self.numberofGenes):
             print("Gene: " + str(i + 1) + " " + str(self.population.selectFittest().getGenes()[i]))
         return self.generationCount + 4
+
+    @staticmethod
+    def areSame(a, b):
+        counter = 0
+        for i in range (len(b.getGenes())):
+            if a.getGenes()[i] == b.getGenes()[i]:
+                counter = counter + 1
+        if counter == 6:
+            return True
+        else:
+            return False
+
+'''
+test = Baseline(5)
+a = []
+try:
+    for i in range (test.numberOfIndividuals):
+        var = random.randrange(0, 150)
+        a.append(Individual(test.init.getfitness()[var], test.init.getGene1()[var], test.init.getGene2()[var],
+                    test.init.getGene3()[var], test.init.getGene4()[var], test.init.getGene5()[var],
+                    test.init.getGene6()[var]))
+except:
+    None
+test.doSim(a)
+'''
