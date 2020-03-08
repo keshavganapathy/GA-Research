@@ -36,6 +36,11 @@ test.arr2 = numpy.empty(test.trialnum, dtype=object)
 for i in range(test.trialnum):
     test.arr1[i] = 0
     test.arr2[i] = 0
+arr = numpy.empty(4, dtype=object)
+ar = numpy.empty(4, dtype=object)
+for i in range (len(arr)):
+    arr[i] = 0
+    ar[i] = 0
 for x in range(test.trialnum):
     #print("--- Test Number " + str(x) + " ---")
     one = GeneticALGO(5)
@@ -47,10 +52,44 @@ for x in range(test.trialnum):
                             test.init.getGene3()[var], test.init.getGene4()[var], test.init.getGene5()[var],
                             test.init.getGene6()[var]))
     first = one.doSim(a)
+    if first < 50:
+        arr[0] = arr[0] + 1
+    elif 50 <= first < 150:
+        arr[1] = arr[1] + 1
+    elif 150 <= first <= 250:
+        arr[2] = arr[2] + 1
+    else:
+        arr[3] = arr[3] + 1
     second = two.doSim(a)
+    if second < 50:
+        ar[0] = ar[0] + 1
+    elif 50 <= second < 150:
+        ar[1] = ar[1] + 1
+    elif 150 <= second <= 250:
+        ar[2] = ar[2] + 1
+    else:
+        ar[3] = ar[3] + 1
     test.arr1[x] = first
     test.arr2[x] = second
     test.val1 = test.val1 + test.arr1[x]
     test.val2 = test.val2 + test.arr2[x]
 print("Genetic Value is " + str(test.val1 / test.trialnum))
 print("Random Value is " + str(test.val2 / test.trialnum))
+for i in range (len(arr)):
+    print("Range " + str(i + 1) + " " + str(arr[i]))
+print("----------------------")
+for i in range (len(test.arr1)):
+    if test.arr1[i] >= 150:
+        print(str(test.arr1[i]))
+print("----------------------")
+print("----------------------")
+print("----------------------")
+print("----------------------")
+print("----------------------")
+for i in range (len(ar)):
+    print("Range " + str(i + 1) + " " + str(ar[i]))
+print("----------------------")
+for i in range (len(test.arr2)):
+    if test.arr2[i] >= 150:
+        print(str(test.arr2[i]))
+

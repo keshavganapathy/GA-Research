@@ -49,7 +49,6 @@ class Baseline:
         # have the while loop condition be whatever you want fitness to attain. For example, while self.maxfit != 16. if you want the final score to be 16
         self.findmax()
         while self.maxfit < 16:
-            self.generationCount = self.generationCount + 1
             var = random.randrange(0, 150)
             self.place = Individual(self.init.getfitness()[var], self.init.getGene1()[var], self.init.getGene2()[var],
                                 self.init.getGene3()[var], self.init.getGene4()[var], self.init.getGene5()[var],
@@ -60,6 +59,7 @@ class Baseline:
                     #self.generationCount = self.generationCount - 1
                     counter = counter + 1
             if counter == 0:
+                self.generationCount = self.generationCount + 1
                 self.addFittestOffspring()
             #self.addFittestOffspring()
             self.findmax()
