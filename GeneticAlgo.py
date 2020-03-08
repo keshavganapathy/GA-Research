@@ -76,9 +76,7 @@ class GeneticALGO:
         elif ran1 == 4:
             self.population.getIndividuals()[ran].getGenes()[ran1] = self.init.getGene5()[var]
         elif ran1 == 5:
-            self.population.getIndividuals()[ran].getGenes()[ran1] = self.init.getGene6()[var]
-        elif ran1 == 6:
-            self.population.getIndividuals()[ran].setFitness(self.init.getfitness()[var])
+            self.population.getIndividuals()[ran].getGenes()[ran1] = self.init.getGene6()[var}
         for x in range(150):
             try:
                 if (self.place.getGenes()[0] == self.init.getGene1()[x]) & (
