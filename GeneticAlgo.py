@@ -15,6 +15,7 @@ class GeneticALGO:
     init = None
     maxfit = None
     numberofGenes = 0
+    all = None
 
     def __init__(self, pop):
         self.numberOfIndividuals = pop
@@ -26,6 +27,9 @@ class GeneticALGO:
         self.init = InitClass()
         self.maxfit = 0
         self.numberofGenes = 6
+        self.all = []
+        for individual in (self.population.getIndividuals()):
+            self.all.append(individual)
 
     def selection(self):
         self.fittest = self.population.selectFittest()
@@ -113,11 +117,13 @@ class GeneticALGO:
             if var == 1:
                 self.mutation()
             counter = 0
-            for individual in self.population.individuals:
-                if self.place.getFitness() == individual.getFitness():
-                    counter = counter + 1
+            for individual in self.all:
+                if individual != None:
+                    if GeneticALGO.areSame(individual,self.place):
+                        counter = counter + 1
             if counter == 0:
                 self.generationCount = self.generationCount + 1
+                self.all.append(self.place)
                 self.addFittestOffspring()
             self.findmax()
             print("")
@@ -134,4 +140,15 @@ class GeneticALGO:
         print("Genes: ")
         for i in range(self.numberofGenes):
             print("Gene: " + str(i + 1) + " " + str(self.population.selectFittest().getGenes()[i]))
-        return (self.generationCount + 5)
+        return self.generationCount + 5
+
+    @staticmethod
+    def areSame(a, b):
+        counter = 0
+        for i in range (len(b.getGenes())):
+            if a.getGenes()[i] == b.getGenes()[i]:
+                counter = counter + 1
+        if counter == 6:
+            return True
+        else:
+            return False

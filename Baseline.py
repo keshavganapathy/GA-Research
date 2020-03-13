@@ -12,6 +12,7 @@ class Baseline:
     init = None
     maxfit = None
     numberofGenes = 0
+    all = None
 
     def __init__(self, pop):
         self.numberOfIndividuals = pop
@@ -21,6 +22,9 @@ class Baseline:
         self.init = InitClass()
         self.maxfit = 0
         self.numberofGenes = 6
+        self.all = []
+        for individual in (self.population.getIndividuals()):
+            self.all.append(individual)
 
     def addFittestOffspring(self):
         leastFittestIndex = self.population.getLeastFittestIndex()
@@ -54,12 +58,13 @@ class Baseline:
                                 self.init.getGene3()[var], self.init.getGene4()[var], self.init.getGene5()[var],
                                 self.init.getGene6()[var])
             counter = 0
-            for individual in self.population.individuals:
-                if Baseline.areSame(self.place, individual):
-                    #self.generationCount = self.generationCount - 1
-                    counter = counter + 1
+            for individual in self.all:
+                if individual != None:
+                    if Baseline.areSame(individual,self.place):
+                        counter = counter + 1
             if counter == 0:
                 self.generationCount = self.generationCount + 1
+                self.all.append(self.place)
                 self.addFittestOffspring()
             #self.addFittestOffspring()
             self.findmax()
