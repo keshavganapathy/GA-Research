@@ -17,7 +17,7 @@ class Baseline:
     def __init__(self, pop):
         self.numberOfIndividuals = pop
         self.population = Population(pop)
-        self.generationCount = 1
+        self.generationCount = 0
         self.place = Individual(0, 0, 0, 0, 0, 0, 0)
         self.init = InitClass()
         self.maxfit = 0
@@ -58,14 +58,12 @@ class Baseline:
                                 self.init.getGene3()[var], self.init.getGene4()[var], self.init.getGene5()[var],
                                 self.init.getGene6()[var])
             counter = 0
-            for individual in self.all:
-                if individual != None:
-                    if Baseline.areSame(individual,self.place):
-                        counter = counter + 1
-            if counter == 0:
-                self.generationCount = self.generationCount + 1
-                self.all.append(self.place)
+            if self.inAll():
+                None
+            else:
                 self.addFittestOffspring()
+                self.generationCount = self.generationCount + 1
+                self.findmax()
             #self.addFittestOffspring()
             self.findmax()
             print("")
@@ -82,7 +80,7 @@ class Baseline:
         print("Genes: ")
         for i in range(self.numberofGenes):
             print("Gene: " + str(i + 1) + " " + str(self.population.selectFittest().getGenes()[i]))
-        return self.generationCount + 4
+        return self.generationCount + 5
 
     @staticmethod
     def areSame(a, b):
@@ -91,6 +89,21 @@ class Baseline:
             if a.getGenes()[i] == b.getGenes()[i]:
                 counter = counter + 1
         if counter == 6:
+            return True
+        else:
+            return False
+
+    def updateAll(self):
+        for individual1 in self.population.getIndividuals():
+            self.all.append(individual1)
+
+    def inAll(self):
+        counter = 0
+        for individual in self.all:
+            if individual is not None:
+                if GeneticALGO.areSame(individual, self.place):
+                    counter = counter + 1
+        if counter > 0:
             return True
         else:
             return False

@@ -50,3 +50,12 @@ class InitClass:
 
     def getfitness(self):
         return self.fitness
+
+print("starting code")
+test = InitClass()
+for i in range (150):
+    print("entered loop")
+    print()
+    if test.getGene1()[i]  == 10000 and test.getGene2()[i]  == 4 and test.getGene3()[i]  == 512 and test.getGene4()[i]  == 2048 and test.getGene5()[i]  == 16 and test.getGene6()[i]  == .0003:
+        print(test.getfitness()[i])
+print("did not find anything that fit criteria")

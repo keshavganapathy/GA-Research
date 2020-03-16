@@ -20,7 +20,7 @@ class GeneticALGO:
     def __init__(self, pop):
         self.numberOfIndividuals = pop
         self.population = Population(pop)
-        self.generationCount = 1
+        self.generationCount = 0
         self.fittest = Individual(0, 0, 0, 0, 0, 0, 0)
         self.secondFittest = Individual(0, 0, 0, 0, 0, 0, 0)
         self.place = Individual(0, 0, 0, 0, 0, 0, 0)
@@ -117,21 +117,32 @@ class GeneticALGO:
             if var == 1:
                 self.mutation()
             counter = 0
+            self.updateAll()
+            if self.inAll():
+                None
+            else:
+                self.addFittestOffspring()
+                self.generationCount = self.generationCount + 1
+                self.findmax()
+            '''
+            for individual1 in self.population.getIndividuals():
+                self.all.append(individual1)
             for individual in self.all:
-                if individual != None:
+                if individual is not None:
                     if GeneticALGO.areSame(individual,self.place):
                         counter = counter + 1
             if counter == 0:
                 self.generationCount = self.generationCount + 1
                 self.all.append(self.place)
                 self.addFittestOffspring()
-            self.findmax()
+            '''
             print("")
+            print("----------This is a GeneticALGO test----------")
             print("Generation: " + str(self.generationCount) + " Fittest Score: " + str(
                 self.population.getFittestScore()))
             GeneticALGO.showGeneticPool(self.population.getIndividuals())
             self.place = Individual(0, 0, 0, 0, 0, 0, 0)
-        self.population.setFittestScore()
+            self.population.setFittestScore()
         print("")
         print("Solution found in generation: " + str(self.generationCount))
         print("Index of winner Individual: " + str(self.population.getFittestIndex()))
@@ -141,6 +152,21 @@ class GeneticALGO:
         for i in range(self.numberofGenes):
             print("Gene: " + str(i + 1) + " " + str(self.population.selectFittest().getGenes()[i]))
         return self.generationCount + 5
+
+    def updateAll(self):
+        for individual1 in self.population.getIndividuals():
+            self.all.append(individual1)
+
+    def inAll(self):
+        counter = 0
+        for individual in self.all:
+            if individual is not None:
+                if GeneticALGO.areSame(individual, self.place):
+                    counter = counter + 1
+        if counter > 0:
+            return True
+        else:
+            return False
 
     @staticmethod
     def areSame(a, b):
