@@ -110,7 +110,7 @@ class GeneticALGO:
         print("Generation: " + str(1) + " Fittest Score: " + str(self.population.getFittestScore()))
         GeneticALGO.showGeneticPool(self.population.getIndividuals())
         # have the while loop condition be whatever you want fitness to attain. For example, while self.maxfit != 16. if you want the final score to be 16
-        while self.maxfit < 16:
+        while self.maxfit is not 16.41:
             self.selection()
             self.crossover()
             var = random.randrange(0, 8)

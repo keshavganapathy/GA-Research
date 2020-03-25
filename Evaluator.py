@@ -31,7 +31,7 @@ arrFirst = numpy.empty(3, dtype=object)
 arrSecond = numpy.empty(3, dtype=object)
 for u in range (3):
     tester = InitClass()
-    test = Evaluator(1000, 25)
+    test = Evaluator(100, 10)
     first = 0
     second = 0
     test.arr1 = numpy.empty(test.trialnum, dtype=object)
