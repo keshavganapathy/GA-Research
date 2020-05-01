@@ -1,2 +1,3 @@
 # GeneticALGO
 Genetic Algorithm for Hyperparameter Optimization
+*THE CODE IN THIS REPOSITORY IS EXPERIMENTAL AND NOT WHAT WAS USED IN THE PAPER*
