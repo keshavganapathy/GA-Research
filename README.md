@@ -1,7 +1,7 @@
 # Genetic Algorithm Research
 A Study of Genetic Algorithms for Hyperparameter Optimization of Neural Networks in Machine Translation
 
-This repository contains the scraping code and data sets for the paper:
+This repository contains the genetic algorithm code for the paper:
 > Keshav Ganapathy. [A Study of Genetic Algorithms for Hyperparameter Optimization of Neural Networks in Machine Translation](https://arxiv.org/abs/2009.08928). arXiv: 2009.08928v1, 2020.
 
 ## Abstract
